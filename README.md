@@ -77,6 +77,8 @@ console.log(command.option.atomic) // true
 console.log(command.option.content) // hello
 ```
 
+### Type Validation
+
 For safer usage though, you'll most probably need to validate the input data. In that case, you'll use a familiar syntax. The example below calls for a `number` type and will throw if the actual value is different. It also sets a named parameter for the option.
 
 ```javascript
@@ -111,6 +113,8 @@ const result = command.option.nums.reduce((acc, num) => acc + num, command.argum
 console.log(result) // 20
 ```
 
+### Alias
+
 Options can be aliased with their shorthand `-x` format:
 
 ```javascript
@@ -122,6 +126,7 @@ const command = new Consoler(template, cli).parse()
 console.log(command.option.files) // ['file1.txt', 'file2.txt']
 ```
 
+### Default Value
 
 Finally, you can set default values for options that will be considered when that option is missing from the actual command:
 
