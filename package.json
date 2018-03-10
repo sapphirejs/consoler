@@ -24,7 +24,8 @@
     "test-ci": "jest --coverage && cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
-    "minimist": "^1.2.0"
+    "minimist": "^1.2.0",
+    "string-argv": "0.0.2"
   },
   "devDependencies": {
     "coveralls": "^3.0.0",

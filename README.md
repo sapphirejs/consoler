@@ -2,6 +2,8 @@
 
 A micro framework for building small CLI applications. It is the package that drives console commands for the Sapphire Router and it was extracted from there. Although a minimalist framework, Consoler will let you express commands in a very simple and intuitive way. What it lacks the most right now are help screens, which would make the command syntax very verbose. If you don't need those, than take a look at the usage below.
 
+Internally it uses [minimist](https://github.com/substack/minimist) to parse options and arguments, and [string-argv](https://github.com/mccormicka/string-argv) to split dhe template command into an array.
+
 ## Usage
 
 Starting it up is quite simple:
@@ -12,7 +14,7 @@ $ npm install --save @sapphirejs/consoler
 
 ```javascript
 const consoler = require('@sapphirejs/consoler')
-const template = 'mycommand <name>'.split(' ')
+const template = 'mycommand <name>'
 const cli = process.argv.slice(2)
 
 // Returns an object with the command name,
@@ -34,7 +36,7 @@ Required arguments need to be passed in the CLI, otherwise and error will be thr
 
 ```javascript
 // CLI: readfile myfile.txt
-const template = 'readfile <name>'.split(' ')
+const template = 'readfile <name>'
 const cli = process.argv.slice(2)
 const command = new Consoler(template, cli).parse()
 
@@ -45,7 +47,7 @@ Optional ones though will just be ingored if not present.
 
 ```javascript
 // CLI: readfile
-const template = 'readfile [name]'.split(' ')
+const template = 'readfile [name]'
 const cli = process.argv.slice(2)
 const command = new Consoler(template, cli).parse()
 
@@ -60,7 +62,7 @@ In the simplest usecase, options can be anonymous and called by their name. Opti
 
 ```javascript
 // CLI: writefile myfile.txt --atomic --content=hello
-const template = 'writefile <name> --atomic --content='.split(' ')
+const template = 'writefile <name> --atomic --content='
 const cli = process.argv.slice(2)
 const command = new Consoler(template, cli).parse()
 
@@ -72,7 +74,7 @@ For safer usage though, you'll most probably need to validate the input data. In
 
 ```javascript
 // CLI: writefile myfile.txt --attemps=3
-const template = 'writefile <name> --attemps=<tries|type:number>'.split(' ')
+const template = 'writefile <name> --attemps=<tries|type:number>'
 const cli = process.argv.slice(2)
 const command = new Consoler(template, cli).parse()
 
@@ -83,7 +85,7 @@ Consoler supports `string`, `number`, and `array` for non-boolean option flags. 
 
 ```javascript
 // CLI: concat --files=one.txt,two.txt
-const template = 'concat --files=<type:array>'.split(' ')
+const template = 'concat --files=<type:array>'
 const cli = process.argv.slice(2)
 const command = new Consoler(template, cli).parse()
 
@@ -94,7 +96,7 @@ Number values will be automatically cast to a number (integer or float). Let's s
 
 ```javascript
 // CLI: reduce 5 --numbers=1,2,3,4,5
-const template = 'reduce <start> --numbers=<nums|type:array>'.split(' ')
+const template = 'reduce <start> --numbers=<nums|type:array>'
 const cli = process.argv.slice(2)
 const command = new Consoler(template, cli).parse()
 
@@ -106,7 +108,7 @@ Finally, you can set default values for options that will be considered when tha
 
 ```javascript
 // CLI: sum
-const template = 'sum --numbers=<nums|type:array|default:7,3>'.split(' ')
+const template = 'sum --numbers=<nums|type:array|default:7,3>'
 const cli = process.argv.slice(2)
 const command = new Consoler(template, cli).parse()
 

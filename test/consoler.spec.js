@@ -2,7 +2,7 @@ const { Consoler, InvalidOption, MissingArgument } = require('../index')
 
 describe('command', () => {
   test('matches template', () => {
-    const route = 'command'.split(' ')
+    const route = 'command'
     const cli = ['command']
     const consoler = new Consoler(route, cli)
 
@@ -10,7 +10,7 @@ describe('command', () => {
   })
 
   test("doesn't match template", () => {
-    const route = 'command'.split(' ')
+    const route = 'command'
     const cli = ['anothercommand']
     const consoler = new Consoler(route, cli)
 
@@ -20,7 +20,7 @@ describe('command', () => {
 
 describe('argument', () => {
   test('matches template', () => {
-    const route = 'command <arg> [anotherarg]'.split(' ')
+    const route = 'command <arg> [anotherarg]'
     const cli = ['command', 'name', 'email']
     const consoler = new Consoler(route, cli)
     const command = consoler.parse()
@@ -31,7 +31,7 @@ describe('argument', () => {
 
   test('throws when required but missing', () => {
     expect(() => {
-      const route = 'command <arg>'.split(' ')
+      const route = 'command <arg>'
       const cli = ['command']
       const consoler = new Consoler(route, cli).parse()
     }).toThrow(MissingArgument)
@@ -39,7 +39,7 @@ describe('argument', () => {
 
   test("doesn't throw when optional but missing", () => {
     expect(() => {
-      const route = 'command [arg]'.split(' ')
+      const route = 'command [arg]'
       const cli = ['command']
       const consoler = new Consoler(route, cli).parse()
     }).not.toThrow(MissingArgument)
@@ -48,7 +48,7 @@ describe('argument', () => {
 
 describe('option', () => {
   test('matches template with named option', () => {
-    const route = 'command --anotheropt=<anopt>'.split(' ')
+    const route = 'command --anotheropt=<anopt>'
     const cli = ['command', '--anotheropt=email']
     const consoler = new Consoler(route, cli)
     const command = consoler.parse()
@@ -57,7 +57,7 @@ describe('option', () => {
   })
 
   test('matches template with anonymous option', () => {
-    const route = 'command --opt='.split(' ')
+    const route = 'command --opt='
     const cli = ['command', '--opt=email']
     const consoler = new Consoler(route, cli)
     const command = consoler.parse()
@@ -66,7 +66,7 @@ describe('option', () => {
   })
 
   test('matches template with flag option', () => {
-    const route = 'command --opt'.split(' ')
+    const route = 'command --opt'
     const cli = ['command', '--opt']
     const consoler = new Consoler(route, cli)
     const command = consoler.parse()
@@ -75,7 +75,7 @@ describe('option', () => {
   })
 
   test('is considered valid when type is array', () => {
-    const route = 'command --opt=<type:array>'.split(' ')
+    const route = 'command --opt=<type:array>'
     const cli = ['command', '--opt=one,two,three']
     const consoler = new Consoler(route, cli)
     const command = consoler.parse()
@@ -84,7 +84,7 @@ describe('option', () => {
   })
 
   test('is considered valid when type is number', () => {
-    const route = 'command --opt=<type:number>'.split(' ')
+    const route = 'command --opt=<type:number>'
     const cli = ['command', '--opt=7']
     const consoler = new Consoler(route, cli)
     const command = consoler.parse()
@@ -93,7 +93,7 @@ describe('option', () => {
   })
 
   test('casts correctly an array of numbers', () => {
-    const route = 'command --opt=<type:array>'.split(' ')
+    const route = 'command --opt=<type:array>'
     const cli = ['command', '--opt=1,2,3']
     const consoler = new Consoler(route, cli)
     const command = consoler.parse()
@@ -102,7 +102,7 @@ describe('option', () => {
   })
 
   test('sets default value when option is missing', () => {
-    const route = 'command --opt=<default:5>'.split(' ')
+    const route = 'command --opt=<default:5>'
     const cli = ['command']
     const consoler = new Consoler(route, cli)
     const command = consoler.parse()
@@ -111,7 +111,7 @@ describe('option', () => {
   })
 
   test("doesn't set default value when option is present", () => {
-    const route = 'command --opt=<default:5>'.split(' ')
+    const route = 'command --opt=<default:5>'
     const cli = ['command', '--opt=7']
     const consoler = new Consoler(route, cli)
     const command = consoler.parse()
@@ -121,7 +121,7 @@ describe('option', () => {
 
   test("throws when types mismatch", () => {
     expect(() => {
-      const route = 'command --opt=<type:string>'.split(' ')
+      const route = 'command --opt=<type:string>'
       const cli = ['command', '--opt=7']
       const consoler = new Consoler(route, cli).parse()
     }).toThrow(InvalidOption)
@@ -129,7 +129,7 @@ describe('option', () => {
 
   test("throws when type is unsupported", () => {
     expect(() => {
-      const route = 'command --opt=<type:object>'.split(' ')
+      const route = 'command --opt=<type:object>'
       const cli = ['command', '--opt=7']
       const consoler = new Consoler(route, cli).parse()
     }).toThrow(InvalidOption)
@@ -137,7 +137,7 @@ describe('option', () => {
 
   test("throws when placeholder key is unknown", () => {
     expect(() => {
-      const route = 'command --opt=<mykey:string>'.split(' ')
+      const route = 'command --opt=<mykey:string>'
       const cli = ['command', '--opt=name']
       const consoler = new Consoler(route, cli).parse()
     }).toThrow(InvalidOption)
