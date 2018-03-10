@@ -129,3 +129,19 @@ const command = new Consoler(template).parse()
 
 console.log(command.option.nums) // 10
 ```
+
+## Testing
+
+Testing is very easily achieved by "mocking" the console input with a plain array. The second parameter to `Consoler.constructor(route, cli)` is automatically resolved to `process.argv` if no user value is given. By passing an array as an argument, that value will be parsed as console input. Let's see a simple example using [Jest](https://facebook.github.io/jest/):
+
+```javascript
+test('argument is received', () => {
+  const template = 'command <arg>'
+  const cli = ['command', '10']
+  const command = new Consoler(template, cli).parse()
+
+  expect(command.arguments.arg).toBe(10)
+})
+```
+
+For many more examples, take a look at this package's [tests](https://github.com/sapphirejs/consoler/blob/master/test/consoler.spec.js).
