@@ -111,6 +111,18 @@ const result = command.option.nums.reduce((acc, num) => acc + num, command.argum
 console.log(result) // 20
 ```
 
+Options can be aliased with their shorthand `-x` format:
+
+```javascript
+// CLI: concat -f file1.txt,file2.txt
+const template = 'concat --files=<type:array|alias:f>'
+const cli = process.argv.slice(2)
+const command = new Consoler(template, cli).parse()
+
+console.log(command.option.files) // ['file1.txt', 'file2.txt']
+```
+
+
 Finally, you can set default values for options that will be considered when that option is missing from the actual command:
 
 ```javascript
