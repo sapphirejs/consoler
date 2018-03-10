@@ -22,17 +22,16 @@ $ npm install --save @sapphirejs/consoler
 ```javascript
 const consoler = require('@sapphirejs/consoler')
 const template = 'mycommand <name>'
-const cli = process.argv.slice(2)
 
 // Returns an object with the command name,
-// arguments, and options.
-const command = new Consoler(template, cli).parse()
+// arguments, and options:
+const command = new Consoler(template).parse()
 ```
 
 There's also the match method that simply returns `true` or `false` if the actual command matches the template. It only checks the firstmost argument, considering it the command name.
 
 ```javascript
-const doesMatch = new Consoler(template, cli).match()
+const doesMatch = new Consoler(template).match()
 ```
 
 ### Arguments
@@ -44,8 +43,7 @@ Required arguments need to be passed in the CLI, otherwise and error will be thr
 ```javascript
 // CLI: readfile myfile.txt
 const template = 'readfile <name>'
-const cli = process.argv.slice(2)
-const command = new Consoler(template, cli).parse()
+const command = new Consoler(template).parse()
 
 console.log(command.argument.name) // myfile.txt
 ```
@@ -55,8 +53,7 @@ Optional ones though will just be ingored if not present.
 ```javascript
 // CLI: readfile
 const template = 'readfile [name]'
-const cli = process.argv.slice(2)
-const command = new Consoler(template, cli).parse()
+const command = new Consoler(template).parse()
 
 console.log(command.argument.name) // undefined
 ```
@@ -70,8 +67,7 @@ In the simplest usecase, options can be anonymous and called by their name. Opti
 ```javascript
 // CLI: writefile myfile.txt --atomic --content=hello
 const template = 'writefile <name> --atomic --content='
-const cli = process.argv.slice(2)
-const command = new Consoler(template, cli).parse()
+const command = new Consoler(template).parse()
 
 console.log(command.option.atomic) // true
 console.log(command.option.content) // hello
@@ -84,8 +80,7 @@ For safer usage though, you'll most probably need to validate the input data. In
 ```javascript
 // CLI: writefile myfile.txt --attemps=3
 const template = 'writefile <name> --attemps=<tries|type:number>'
-const cli = process.argv.slice(2)
-const command = new Consoler(template, cli).parse()
+const command = new Consoler(template).parse()
 
 console.log(command.option.tries) // 3
 ```
@@ -95,8 +90,7 @@ Consoler supports `string`, `number`, and `array` for non-boolean option flags. 
 ```javascript
 // CLI: concat --files=one.txt,two.txt
 const template = 'concat --files=<type:array>'
-const cli = process.argv.slice(2)
-const command = new Consoler(template, cli).parse()
+const command = new Consoler(template).parse()
 
 console.log(command.option.files) // ['one.txt', 'two.txt']
 ```
@@ -106,8 +100,7 @@ Number values will be automatically cast to a number (integer or float). Let's s
 ```javascript
 // CLI: reduce 5 --numbers=1,2,3,4,5
 const template = 'reduce <start> --numbers=<nums|type:array>'
-const cli = process.argv.slice(2)
-const command = new Consoler(template, cli).parse()
+const command = new Consoler(template).parse()
 
 const result = command.option.nums.reduce((acc, num) => acc + num, command.argument.start)
 console.log(result) // 20
@@ -120,8 +113,7 @@ Options can be aliased with their shorthand `-x` format:
 ```javascript
 // CLI: concat -f file1.txt,file2.txt
 const template = 'concat --files=<type:array|alias:f>'
-const cli = process.argv.slice(2)
-const command = new Consoler(template, cli).parse()
+const command = new Consoler(template).parse()
 
 console.log(command.option.files) // ['file1.txt', 'file2.txt']
 ```
@@ -133,8 +125,7 @@ Finally, you can set default values for options that will be considered when tha
 ```javascript
 // CLI: sum
 const template = 'sum --numbers=<nums|type:array|default:7,3>'
-const cli = process.argv.slice(2)
-const command = new Consoler(template, cli).parse()
+const command = new Consoler(template).parse()
 
 console.log(command.option.nums) // 10
 ```
