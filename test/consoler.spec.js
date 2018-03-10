@@ -76,11 +76,11 @@ describe('option', () => {
 
   test('matches template with option alias', () => {
     const route = 'command --opt=<alias:o>'
-    const cli = ['command', '-o']
+    const cli = ['command', '-o name']
     const consoler = new Consoler(route, cli)
     const command = consoler.parse()
 
-    expect(command.option.opt).toBe(true)
+    expect(command.option.opt).toBe('name')
   })
 
   test('is considered valid when type is array', () => {
