@@ -33,7 +33,7 @@ describe('argument', () => {
     expect(() => {
       const route = 'command <arg>'
       const cli = ['command']
-      const consoler = new Consoler(route, cli).parse()
+      new Consoler(route, cli).parse()
     }).toThrow(MissingArgument)
   })
 
@@ -41,7 +41,7 @@ describe('argument', () => {
     expect(() => {
       const route = 'command [arg]'
       const cli = ['command']
-      const consoler = new Consoler(route, cli).parse()
+      new Consoler(route, cli).parse()
     }).not.toThrow(MissingArgument)
   })
 })
@@ -132,7 +132,7 @@ describe('option', () => {
     expect(() => {
       const route = 'command --opt'
       const cli = ['command', '--opt=10']
-      const consoler = new Consoler(route, cli).parse()
+      new Consoler(route, cli).parse()
     }).toThrow(InvalidOption)
   })
 
@@ -140,7 +140,7 @@ describe('option', () => {
     expect(() => {
       const route = 'command --opt=<type:string>'
       const cli = ['command', '--opt=7']
-      const consoler = new Consoler(route, cli).parse()
+      new Consoler(route, cli).parse()
     }).toThrow(InvalidOption)
   })
 
@@ -148,7 +148,7 @@ describe('option', () => {
     expect(() => {
       const route = 'command --opt=<type:object>'
       const cli = ['command', '--opt=7']
-      const consoler = new Consoler(route, cli).parse()
+      new Consoler(route, cli).parse()
     }).toThrow(InvalidOption)
   })
 
@@ -156,7 +156,7 @@ describe('option', () => {
     expect(() => {
       const route = 'command --opt=<mykey:string>'
       const cli = ['command', '--opt=name']
-      const consoler = new Consoler(route, cli).parse()
+      new Consoler(route, cli).parse()
     }).toThrow(InvalidOption)
   })
 })
