@@ -128,7 +128,15 @@ describe('option', () => {
     expect(command.option.opt).toBe(7)
   })
 
-  test("throws when types mismatch", () => {
+  test("throws when flag is handled values", () => {
+    expect(() => {
+      const route = 'command --opt'
+      const cli = ['command', '--opt=10']
+      const consoler = new Consoler(route, cli).parse()
+    }).toThrow(InvalidOption)
+  })
+
+  test("throws when types missmatch", () => {
     expect(() => {
       const route = 'command --opt=<type:string>'
       const cli = ['command', '--opt=7']
