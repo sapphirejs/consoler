@@ -1,5 +1,10 @@
 # Consoler
 
+[![NPM Version](https://img.shields.io/npm/v/@sapphirejs/consoler.svg)](https://www.npmjs.com/package/@sapphirejs/consoler)
+[![Build Status](https://travis-ci.org/sapphirejs/consoler.svg?branch=master)](https://travis-ci.org/sapphirejs/consoler)
+[![Coverage Status](https://coveralls.io/repos/github/sapphirejs/consoler/badge.svg?branch=master)](https://coveralls.io/github/sapphirejs/consoler?branch=master)
+[![license](https://img.shields.io/github/license/sapphirejs/consoler.svg)](https://github.com/sapphirejs/consoler/blob/master/LICENSE.md)
+
 A micro framework for building small CLI applications. It is the package that drives console commands for the Sapphire Router and it was extracted from there. Although a minimalist framework, Consoler will let you express commands in a very simple and intuitive way. What it lacks the most right now are help screens, which would make the command syntax very verbose. If you don't need those, than take a look at the usage below.
 
 Internally it uses [minimist](https://github.com/substack/minimist) to parse options and arguments, and [string-argv](https://github.com/mccormicka/string-argv) to split dhe template command into an array.
