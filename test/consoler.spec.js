@@ -74,6 +74,15 @@ describe('option', () => {
     expect(command.option.opt).toBe(true)
   })
 
+  test('matches template with option alias', () => {
+    const route = 'command --opt=<alias:o>'
+    const cli = ['command', '-o']
+    const consoler = new Consoler(route, cli)
+    const command = consoler.parse()
+
+    expect(command.option.opt).toBe(true)
+  })
+
   test('is considered valid when type is array', () => {
     const route = 'command --opt=<type:array>'
     const cli = ['command', '--opt=one,two,three']
