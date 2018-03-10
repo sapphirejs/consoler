@@ -9,7 +9,7 @@
 
 A micro framework for building small CLI applications. It is the package that drives console commands for the Sapphire Router and it was extracted from there. Although a minimalist framework, Consoler will let you express commands in a very simple and intuitive way. What it lacks the most right now are help screens, which would make the command syntax very verbose. If you don't need those, than take a look at the usage below.
 
-Internally it uses [minimist](https://github.com/substack/minimist) to parse options and arguments, and [string-argv](https://github.com/mccormicka/string-argv) to split dhe template command into an array.
+Internally it uses [minimist](https://github.com/substack/minimist) to parse options and arguments, and [string-argv](https://github.com/mccormicka/string-argv) to split the template command into an array.
 
 ## Usage
 
@@ -38,7 +38,7 @@ const doesMatch = new Consoler(template).match()
 
 Arguments will always be named and either required or optional. The convention is to use `<arg>` for required arguments and `[arg]` for optional ones.
 
-Required arguments need to be passed in the CLI, otherwise and error will be thrown.
+Required arguments need to be passed in the CLI, otherwise an error will be thrown.
 
 ```javascript
 // CLI: readfile myfile.txt
@@ -48,7 +48,7 @@ const command = new Consoler(template).parse()
 console.log(command.argument.name) // myfile.txt
 ```
 
-Optional ones though will just be ingored if not present.
+Optional ones will just be ingored if not present.
 
 ```javascript
 // CLI: readfile
@@ -60,9 +60,9 @@ console.log(command.argument.name) // undefined
 
 ### Options
 
-Options are a tiny bit more complicated as they may be flags, may have a type, or default values. We'll explore each of them.
+Options are a tiny bit more complicated as they may be flags, may have a type, alias, or default value. We'll explore each of them.
 
-In the simplest usecase, options can be anonymous and called by their name. Option flags will always return true.
+In the simplest usecase, options can be defined without parameters. Option flags will always return true, while `--opt=` will expect a string.
 
 ```javascript
 // CLI: writefile myfile.txt --atomic --content=hello
@@ -95,7 +95,7 @@ const command = new Consoler(template).parse()
 console.log(command.option.files) // ['one.txt', 'two.txt']
 ```
 
-Number values will be automatically cast to a number (integer or float). Let's see a more contrived example that takes advantage of lists and casting:
+Number values will be automatically cast to an integer or float. Let's see a more contrived example that takes advantage of lists and casting:
 
 ```javascript
 // CLI: reduce 5 --numbers=1,2,3,4,5
@@ -120,7 +120,7 @@ console.log(command.option.files) // ['file1.txt', 'file2.txt']
 
 #### Default Value
 
-Finally, you can set default values for options that will be considered when that option is missing from the actual command:
+Finally, you can set a default value for an option, which will be considered when that option is missing from the actual command:
 
 ```javascript
 // CLI: sum
