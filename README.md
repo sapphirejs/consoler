@@ -20,7 +20,7 @@ $ npm install --save @sapphirejs/consoler
 ```
 
 ```javascript
-const consoler = require('@sapphirejs/consoler')
+const Consoler = require('@sapphirejs/consoler')
 const template = 'mycommand <name>'
 
 // Returns an object with the command name,
