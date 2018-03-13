@@ -106,6 +106,15 @@ describe('option', () => {
     expect(command.option.opt).toBe(7)
   })
 
+  test('is considered valid when type is boolean', () => {
+    const route = 'command --opt=<type:boolean>'
+    const cli = ['command', '--opt=true']
+    const consoler = new Consoler(route, cli)
+    const command = consoler.parse()
+
+    expect(command.option.opt).toBe(true)
+  })
+
   test('casts correctly an array of numbers', () => {
     const route = 'command --opt=<type:array>'
     const cli = ['command', '--opt=1,2,3']
