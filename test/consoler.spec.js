@@ -133,6 +133,15 @@ describe('option', () => {
     expect(command.option.opt).toBe(7)
   })
 
+  test("is ignored when value is missing", () => {
+    const route = 'command --opt='
+    const cli = ['command']
+    const consoler = new Consoler(route, cli)
+    const command = consoler.parse()
+
+    expect(command.option.opt).toBeUndefined()
+  })
+
   test("throws when flag is handled values", () => {
     expect(() => {
       const route = 'command --opt'
