@@ -15,6 +15,11 @@ describe('command', () => {
     const consoler = new Consoler(route, cli)
 
     expect(consoler.match()).toBe(false)
+    expect(consoler.parse()).toEqual({
+      command: null,
+      argument: {},
+      option: {}
+    })
   })
 })
 
